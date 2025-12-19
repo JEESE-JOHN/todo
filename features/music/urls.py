@@ -1,16 +1,10 @@
 from django.urls import path
-from features.music.controller import (
-    create_song_endpoint, 
-    update_song_endpoint,
-    list_songs_endpoint,
-    get_song_endpoint,
-    delete_song_endpoint
-)
+from features.music.controller import MusicViewController
 
 urlpatterns = [
-    path('list/', list_songs_endpoint, name='list-songs'),
-    path('create/', create_song_endpoint, name='create-song'),
-    path('get/<int:song_id>/', get_song_endpoint, name='get-song'),
-    path('update/<int:song_id>/', update_song_endpoint, name='update-song'),
-    path('delete/<int:song_id>/', delete_song_endpoint, name='delete-song'),
+    path('create/', MusicViewController.create, name='music-create'),
+    path('update/', MusicViewController.update, name='music-update'),
+    path('list/', MusicViewController.list, name='music-list'),
+    path('get/', MusicViewController.get, name='music-get'),
+    path('delete/', MusicViewController.delete, name='music-delete'),
 ]

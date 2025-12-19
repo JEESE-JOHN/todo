@@ -1,16 +1,10 @@
 from django.urls import path
-from features.tasks.controller import (
-    create_task_endpoint, 
-    update_task_endpoint,
-    list_tasks_endpoint,
-    get_task_endpoint,
-    delete_task_endpoint
-)
+from features.tasks.controller import TasksViewController
 
 urlpatterns = [
-    path('list/', list_tasks_endpoint, name='list-tasks'),
-    path('create/', create_task_endpoint, name='create-task'),
-    path('get/<int:task_id>/', get_task_endpoint, name='get-task'),
-    path('update/<int:task_id>/', update_task_endpoint, name='update-task'),
-    path('delete/<int:task_id>/', delete_task_endpoint, name='delete-task'),
+    path('list/', TasksViewController.list, name='list-tasks'),
+    path('create/', TasksViewController.create, name='create-task'),
+    path('get/', TasksViewController.get, name='get-task'),
+    path('update/', TasksViewController.update, name='update-task'),
+    path('delete/', TasksViewController.delete, name='delete-task'),
 ]
