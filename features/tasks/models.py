@@ -1,9 +1,4 @@
 from django.db import models
-from typing import TYPE_CHECKING
-
-# Import the dataclasses for type hints
-from features.tasks.dataclasses.request.create import CreateTaskRequest
-from features.tasks.dataclasses.request.update import UpdateTaskRequest
 from features.tasks.dataclasses.response.task import TaskResponse
 
 
@@ -14,42 +9,49 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     @classmethod
-    def create_from_dataclass(cls, data: CreateTaskRequest) -> "Task":
-        """
-        Create a Task row from a validated dataclass.
-        """
-        task = cls.objects.create(
-            title=data.title,
-            description=getattr(data, "description", None),
-            is_completed=False,
+    def create(cls, title, description=None, is_completed=False):
+        return cls.objects.create(
+            title=title,
+            description=description,
+            is_completed=is_completed
         )
+
+    @classmethod
+    def get_all(cls):
+        return cls.objects.all().order_by('-id')
+
+    @classmethod
+    def get_one(cls, task_id):
+        try:
+            return cls.objects.get(id=task_id)
+        except cls.DoesNotExist:
+            return None
+
+    @classmethod
+    def update(cls, task_id, title=None, description=None, is_completed=None):
+        task = cls.get_one(task_id)
+        if not task:
+            return None
+        
+        if title is not None:
+            task.title = title
+        if description is not None:
+            task.description = description
+        if is_completed is not None:
+            task.is_completed = is_completed
+        
+        task.save()
         return task
 
-    def update_from_dataclass(self, data: UpdateTaskRequest) -> "Task":
-        """
-        Update this Task instance using values from the dataclass.
-        Only updates fields that are not None on the dataclass (partial updates).
-        """
-        updated = False
+    @classmethod
+    def delete_one(cls, task_id):
+        task = cls.get_one(task_id)
+        if task:
+            task.delete()
+            return True
+        return False
 
-        if getattr(data, "title", None) is not None:
-            self.title = data.title
-            updated = True
-
-        if getattr(data, "description", None) is not None:
-            self.description = data.description
-            updated = True
-
-        if getattr(data, "is_completed", None) is not None:
-            self.is_completed = data.is_completed
-            updated = True
-
-        if updated:
-            self.save()
-
-        return self
-
-    def to_response_dataclass(self) -> TaskResponse:
+    def to_response_dataclass(self):
         return TaskResponse(
             id=self.id,
             title=self.title,
