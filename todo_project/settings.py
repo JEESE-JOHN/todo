@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',  
     'features.tasks',
-    'features.music'
+    'features.music',
+    'features.artists'
 ]
 
 MIDDLEWARE = [
