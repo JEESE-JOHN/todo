@@ -1,5 +1,6 @@
 import urllib.parse
 from rest_framework.request import Request
+from todo_project.common.constants import Constants
 
 
 class Utils:
@@ -88,3 +89,12 @@ class Utils:
             query_params[key] = value
 
         return query_params
+
+    @staticmethod
+    def validator(serializer):
+        if not serializer.is_valid():
+            errors = []
+            for field, message in serializer.errors.items():
+                errors.append(f"{field}: {message[0]}")
+            return Utils.error_response(message=Constants.validation_error, error=errors)
+        return True

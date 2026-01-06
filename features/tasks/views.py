@@ -21,11 +21,9 @@ class TasksView:
         data = TaskResponseSerializer(task).data
         return Response(Utils.success_response("Task created successfully", data), status=status.HTTP_201_CREATED)
 
-    def get_all(self, request):
-        params = Utils.get_query_params(request)
-
-        page_num = int(params.get("page_num", 1))
-        limit = int(params.get("limit", 10))
+    def get_all(self, params, request):
+        page_num = int(params.page_num)
+        limit = int(params.limit)
 
         qs = Task.get_all()
 
