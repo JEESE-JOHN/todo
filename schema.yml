@@ -1,0 +1,932 @@
+openapi: 3.0.3
+info:
+  title: Todo DRF API
+  version: 1.0.0
+  description: OpenApi documentation for Todo DRF backend APIs
+paths:
+  /api/artists/create:
+    post:
+      operationId: artists_create_create
+      description: Create a new artist
+      tags:
+      - artists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateArtistRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateArtistRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateArtistRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Unauthorized Access
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Internal Server Error
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistSingleResponse'
+          description: null
+  /api/artists/delete:
+    delete:
+      operationId: artists_delete_destroy
+      description: Delete an artist
+      parameters:
+      - in: query
+        name: artist_id
+        schema:
+          type: string
+        description: artist_id required
+        required: true
+      tags:
+      - artists
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Unauthorized Access
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Internal Server Error
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: Artist deleted successfully
+  /api/artists/get:
+    get:
+      operationId: artists_get_retrieve
+      description: Get a single artist by ID
+      parameters:
+      - in: query
+        name: artist_id
+        schema:
+          type: string
+        description: artist_id required
+        required: true
+      tags:
+      - artists
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Unauthorized Access
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Internal Server Error
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistSingleResponse'
+          description: null
+  /api/artists/list:
+    get:
+      operationId: artists_list_retrieve
+      description: List all artists with pagination
+      parameters:
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          default: 10
+        description: Number of data in a single page
+      - in: query
+        name: page_num
+        schema:
+          type: integer
+        description: Page number to get the list of records
+      tags:
+      - artists
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Unauthorized Access
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Internal Server Error
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistGetAllResponse'
+          description: null
+  /api/artists/update:
+    put:
+      operationId: artists_update_update
+      description: Update an existing artist
+      tags:
+      - artists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateArtistRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateArtistRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateArtistRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Unauthorized Access
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Internal Server Error
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ArtistSingleResponse'
+          description: null
+  /api/music/create/:
+    post:
+      operationId: music_create_create
+      description: Add a new song
+      tags:
+      - music
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSongRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateSongRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateSongRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Unauthorized Access
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Internal Server Error
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SongSingleResponse'
+          description: null
+  /api/music/delete/:
+    delete:
+      operationId: music_delete_destroy
+      description: Delete a song
+      parameters:
+      - in: query
+        name: song_id
+        schema:
+          type: string
+        description: song_id required
+        required: true
+      tags:
+      - music
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Unauthorized Access
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Internal Server Error
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: Song deleted successfully
+  /api/music/get/:
+    get:
+      operationId: music_get_retrieve
+      description: Get a single song by ID
+      parameters:
+      - in: query
+        name: song_id
+        schema:
+          type: string
+        description: song_id required
+        required: true
+      tags:
+      - music
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Unauthorized Access
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Internal Server Error
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SongSingleResponse'
+          description: null
+  /api/music/list/:
+    get:
+      operationId: music_list_retrieve
+      description: List all songs with pagination
+      parameters:
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          default: 10
+        description: Number of data in a single page
+      - in: query
+        name: page_num
+        schema:
+          type: integer
+        description: Page number to get the list of records
+      tags:
+      - music
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Unauthorized Access
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Internal Server Error
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SongGetAllResponse'
+          description: null
+  /api/music/update/:
+    put:
+      operationId: music_update_update
+      description: Update an existing song
+      tags:
+      - music
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateSongRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateSongRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateSongRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Unauthorized Access
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Internal Server Error
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SongSingleResponse'
+          description: null
+  /api/tasks/create/:
+    post:
+      operationId: tasks_create_create
+      description: Create a new task
+      tags:
+      - tasks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Unauthorized Access
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Internal Server Error
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskSingleResponse'
+          description: null
+  /api/tasks/delete/:
+    delete:
+      operationId: tasks_delete_destroy
+      description: Delete a task
+      parameters:
+      - in: query
+        name: task_id
+        schema:
+          type: string
+        description: task_id required
+        required: true
+      tags:
+      - tasks
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Unauthorized Access
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Internal Server Error
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+          description: Task deleted successfully
+  /api/tasks/get/:
+    get:
+      operationId: tasks_get_retrieve
+      description: Get a single task by ID
+      parameters:
+      - in: query
+        name: task_id
+        schema:
+          type: string
+        description: task_id required
+        required: true
+      tags:
+      - tasks
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Unauthorized Access
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Internal Server Error
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskSingleResponse'
+          description: null
+  /api/tasks/list/:
+    get:
+      operationId: tasks_list_retrieve
+      description: List all tasks with pagination
+      parameters:
+      - in: query
+        name: limit
+        schema:
+          type: integer
+          default: 10
+        description: Number of data in a single page
+      - in: query
+        name: page_num
+        schema:
+          type: integer
+        description: Page number to get the list of records
+      tags:
+      - tasks
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Unauthorized Access
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Internal Server Error
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskGetAllResponse'
+          description: null
+  /api/tasks/update/:
+    put:
+      operationId: tasks_update_update
+      description: Update an existing task
+      tags:
+      - tasks
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTaskRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UpdateTaskRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UpdateTaskRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Unauthorized Access
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FailureResponse'
+          description: Internal Server Error
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TaskSingleResponse'
+          description: null
+components:
+  schemas:
+    ArtistGetAllResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArtistResponse'
+      required:
+      - data
+      - message
+      - status
+    ArtistResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        song_id:
+          type: integer
+        artist_name:
+          type: string
+        song_title:
+          type: string
+        bio:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+      required:
+      - artist_name
+      - bio
+      - created_at
+      - id
+      - song_id
+      - song_title
+    ArtistSingleResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/ArtistResponse'
+      required:
+      - data
+      - message
+      - status
+    CreateArtistRequest:
+      type: object
+      properties:
+        song_id:
+          type: integer
+        bio:
+          type: string
+      required:
+      - bio
+      - song_id
+    CreateSongRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          maxLength: 200
+        artist:
+          type: string
+          maxLength: 200
+      required:
+      - artist
+      - title
+    CreateTaskRequest:
+      type: object
+      properties:
+        title:
+          type: string
+          maxLength: 200
+        description:
+          type: string
+          nullable: true
+      required:
+      - title
+    FailureResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          default: false
+        message:
+          type: string
+        error:
+          type: array
+          items:
+            type: string
+      required:
+      - message
+    SongGetAllResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/SongResponse'
+      required:
+      - data
+      - message
+      - status
+    SongResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        artist:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+      required:
+      - artist
+      - created_at
+      - id
+      - title
+    SongSingleResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/SongResponse'
+      required:
+      - data
+      - message
+      - status
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+          default: true
+        message:
+          type: string
+      required:
+      - message
+    TaskGetAllResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaskResponse'
+      required:
+      - data
+      - message
+      - status
+    TaskResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+          nullable: true
+        is_completed:
+          type: boolean
+        created_at:
+          type: string
+          format: date-time
+      required:
+      - created_at
+      - description
+      - id
+      - is_completed
+      - title
+    TaskSingleResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        message:
+          type: string
+        data:
+          $ref: '#/components/schemas/TaskResponse'
+      required:
+      - data
+      - message
+      - status
+    UpdateArtistRequest:
+      type: object
+      properties:
+        artist_id:
+          type: integer
+        song_id:
+          type: integer
+        bio:
+          type: string
+      required:
+      - artist_id
+    UpdateSongRequest:
+      type: object
+      properties:
+        song_id:
+          type: integer
+        title:
+          type: string
+          maxLength: 200
+        artist:
+          type: string
+          maxLength: 200
+      required:
+      - song_id
+    UpdateTaskRequest:
+      type: object
+      properties:
+        task_id:
+          type: integer
+        title:
+          type: string
+          maxLength: 200
+        description:
+          type: string
+          nullable: true
+        is_completed:
+          type: boolean
+      required:
+      - task_id
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
